@@ -16,7 +16,7 @@ class Envir: # Environment class
         #Dimensions
         self.height = dimentions[0]
         self.width = dimentions[1]
-        self.pontox = 60
+        self.pontox = 80    #local do ponto X#####
         self.pontoy = 150
 
         #Window settings
@@ -29,11 +29,12 @@ class Envir: # Environment class
         self.textRect2 = self.text2.get_rect()
         self.textRect2.center = (self.pontox+35, self.pontoy) #local X
 
+        
         #Text configuration
         self.font=pygame.font.Font('freesansbold.ttf', 30)
         self.text=self.font.render('default', True, self.white, self.black)
         self.textRect=self.text.get_rect()
-        self.textRect.center = (dimentions[1]-600,dimentions[0]-100)
+        self.textRect.center = (dimentions[1]-500,dimentions[0]-50)
 
     
         #Trail
@@ -129,7 +130,7 @@ class Robot:
             exit()
             #para
         else:
-            v=0.5*math.sqrt(pow((env.pontox - self.x),2) + pow((env.pontoy - self.y),2))      
+            v=0.05*math.sqrt(pow((env.pontox - self.x),2) + pow((env.pontoy - self.y),2))      
             self.x+=v*math.cos(self.theta)*dt
             self.y-=v*math.sin(self.theta)*dt
             self.theta_des = (math.atan2((self.y - env.pontoy),(env.pontox - self.x)))
@@ -196,6 +197,7 @@ while running:
     #Update
     pygame.display.update()
     environment.map.fill(environment.black)
+    pygame.draw.rect(environment.map, (0, 0, 255), [200, 100, 770, 400], 2) #inicio(x),inicio(y),final(x),final(y)
     robot.move(environment)
 
     environment.write_info(int(robot.x), int(robot.y), robot.theta, robot.gama)
